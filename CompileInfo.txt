@@ -1,0 +1,21 @@
+1- Open main directory of project in terminal
+
+// Install docker image of postgresql(Do not install again if did it before, go to 3rd step.)
+2- sudo docker container run --name postgresdb -e POSTGRES_PASSWORD=admin -d -p 5432:5432 postgres
+
+// Copy the sql script(Important, because I have different structure in each project)
+3- sudo docker cp rating_db.sql  postgresdb:/
+
+// Go to bash in container
+4- sudo docker container exec -it postgresdb bash
+
+// Execute Sql script in docker
+5- psql -U postgres --file rating_db.sql
+6- exit
+
+// Start the container
+7- sudo docker container start postgresdb
+
+// Buil the application and run it
+8- mvn clean && mvn package
+9- java -jar target/Food-outlets-rating-system-3-1.0-SNAPSHOT-jar-with-dependencies.jar
